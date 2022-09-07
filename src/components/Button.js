@@ -1,4 +1,5 @@
 import React from "react";
+// use classNames library to render the right css style based on the state
 import classNames from "classnames";
 
 import "components/Button.scss";
