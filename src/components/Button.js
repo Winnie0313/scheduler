@@ -1,7 +1,7 @@
 import React from "react";
 // use classNames library to render the right css style based on the state
 import classNames from "classnames";
-
+// import stylesheet
 import "components/Button.scss";
 
 export default function Button(props) {

@@ -1,6 +1,8 @@
 import React from "react";
+// import the classNames library to dynamically set className to match with corret style
 import classNames from "classnames";
 
+//import the stylesheet
 import "components/DayListItem.scss";
 
 export default function DayListItem(props) {

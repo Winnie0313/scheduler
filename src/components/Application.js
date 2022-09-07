@@ -22,6 +22,7 @@ const days = [
 ];
 
 export default function Application(props) {
+  // stored the day state in the <Application> component instead of in DayList because Appoinment will need to have access to day state as well
   const [day, setDay] = useState("Monday");
   return (
     <main className="layout">
@@ -35,6 +36,8 @@ export default function Application(props) {
         <nav className="sidebar__menu">
           <DayList
             days={days}
+            // When we change the state, the <Application> renders and passes the new day to the <DayList></DayList>
+            // The <DayList> renders and passes props to the <DayListItem> children causing the updates to the selected visual state.
             day={day}
             setDay={setDay}
           />
