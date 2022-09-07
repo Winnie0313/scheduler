@@ -18,7 +18,7 @@ export default function InterviewerListItem(props) {
         src={props.avatar}
         alt={props.name}
       />
-      {props.selected && props.name} {/* need curly bracket because wrting js in JSX */}
+      {props.selected && props.name} {/* Conditional redering. Need curly bracket because wrting js in JSX */}
     </li>
   );
 }
