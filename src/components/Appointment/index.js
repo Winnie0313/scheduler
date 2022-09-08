@@ -1,6 +1,6 @@
 import React from "react";
 //import the stylesheet
-import "components/Appoinment/styles.scss";
+import "components/Appointment/styles.scss";
 
 export default function Appoinment(props) {
   return (
