@@ -38,8 +38,8 @@ export default function Application(props) {
             days={days}
             // When we change the state, the <Application> renders and passes the new day to the <DayList></DayList>
             // The <DayList> renders and passes props to the <DayListItem> children causing the updates to the selected visual state.
-            day={day}
-            setDay={setDay}
+            value={day}
+            onChange={setDay}
           />
         </nav>
         <img
