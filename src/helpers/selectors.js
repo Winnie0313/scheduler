@@ -1,10 +1,8 @@
-import React from "react";
-
 // returns an array of appointments for that day
 export function getAppointmentsForDay(state, day) {
   const appointmentsArray = [];
   // find the day object
-  const dayObj = state.days.find(item => item.name == day);
+  const dayObj = state.days.find(item => item.name === day);
 
   if (!dayObj) {
     return [];

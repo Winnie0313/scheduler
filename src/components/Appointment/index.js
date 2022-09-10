@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 //import the stylesheet
 import "components/Appointment/styles.scss";
 
