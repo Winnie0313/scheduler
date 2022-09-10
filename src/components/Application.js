@@ -47,8 +47,25 @@ const appointments = {
 
 export default function Application(props) {
   // stored the day state in the <Application> component instead of in DayList because Appoinment will need to have access to day state as well
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]);
+  
+  // const [day, setDay] = useState("Monday");
+  // const [days, setDays] = useState([]);
+  // const [appointments, setAppointments] = useState({})
+  
+  // combined state
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    appointments: {}
+  });
+
+  const setDay = day => setState(prev => ({ ...prev, day }));
+  const setDays = days => setState(prev => ({ ...prev, days }));
+
+
+
+
   useEffect(() => {
     axios.get('/api/days')
       .then(res => {
@@ -56,7 +73,7 @@ export default function Application(props) {
         // console.log("result", res.data);
         // setDays(res.days)
         setDays(newDays);
-        console.log("days data: ", days);
+        // console.log("days data: ", days);
       })
   }, []);
 
@@ -83,10 +100,10 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days={days}
+            days={state.days}
             // When we change the state, the <Application> renders and passes the new day to the <DayList></DayList>
             // The <DayList> renders and passes props to the <DayListItem> children causing the updates to the selected visual state.
-            value={day}
+            value={state.day}
             onChange={setDay}
           />
         </nav>
