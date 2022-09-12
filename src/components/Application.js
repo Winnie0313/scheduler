@@ -3,17 +3,19 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import useVisualMode from "hooks/useVisualMode";
 
 
 export default function Application(props) {
   // stored the day state in the <Application> component instead of in DayList because Appoinment will need to have access to day state as well
-  
+
   // combined state
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
   const setDay = day => setState(prev => ({ ...prev, day }));
@@ -24,11 +26,10 @@ export default function Application(props) {
     Promise.all([
       axios.get('/api/days'),
       axios.get('api/appointments'),
+      axios.get('api/interviewers')
     ]).then((all) => {
-      console.log("all is: ", all)
-      console.log("days is: ", all[0].data); 
-      console.log("appointments is: ", all[1].data); 
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data }));
+      console.log("all is: ", all);
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data })); //update the state
     })
   }, [])
 
@@ -37,11 +38,14 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   // create list of appointment HTML 
-  const appoinmentList = dailyAppointments.map(appointment => {
+  const schedule = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview)
     return (
       <Appointment
         key={appointment.id}
-        {...appointment}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
       />
     )
   })
@@ -72,7 +76,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {appoinmentList}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
