@@ -32,6 +32,8 @@ export default function Application(props) {
     })
   }, [])
 
+  // use the appointment id to find the right appointment slot, and book the interview for the appointment lot
+  // and update the interview data on api
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -43,6 +45,25 @@ export default function Application(props) {
     };
     
     return axios.put(`/api/appointments/${id}`, {interview})
+      .then((response) => {
+        setState({...state, appointments});
+      })
+  }
+
+  // use the appointment id to find the right appointment slot 
+  // and set it's interview data to null on api 
+  // and update local state
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.delete(`/api/appointments/${id}`)
       .then((response) => {
         setState({...state, appointments});
       })
@@ -65,6 +86,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     )
   })
