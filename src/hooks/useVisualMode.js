@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 export default function useVisualMode(initial) {
-  console.log("initial is: ", initial);
   // const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
@@ -16,7 +15,6 @@ export default function useVisualMode(initial) {
       // const newHistory = [...history];
     newHistory.push(newMode);
     setHistory(newHistory);
-    console.log("history is: ", newHistory);
 
   };
 
@@ -31,7 +29,6 @@ export default function useVisualMode(initial) {
     setHistory(newHistory);
   };
   const mode = history[history.length - 1];
-  console.log("returning mode is: ", mode)
   return { mode, transition, back };
 };
 

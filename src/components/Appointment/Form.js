@@ -39,7 +39,7 @@ export default function Form(props) {
           />
         </form>
         <InterviewerList
-          interviewers={props.interviewers}
+          interviewers={props.interviewers.toString()}
           value={interviewer}
           onChange={setInterviewer}
 

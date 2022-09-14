@@ -23,13 +23,9 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appoinment(props) {
-  console.log("redering appointment: ", props.id);
-  console.log("interview is: ", props.interview)
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
-  console.log("mode is: ", mode)
-
 
   function save(name, interviewer) {
     const interview = {
