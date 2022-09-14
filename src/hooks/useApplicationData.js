@@ -24,6 +24,14 @@ export default function useApplicationData() {
   // select the day 
   const setDay = day => setState(prev => ({ ...prev, day }));
 
+  // get days array from api
+  const getDays = function() {
+    return axios.get('/api/days')
+      .then((response) => {
+        setState(prev => ({...prev, days: response.data}))
+      })
+  }
+
   // use the appointment id to find the right appointment slot, and book the interview for the appointment lot
   // and update the interview data on api
   function bookInterview(id, interview) {
@@ -35,20 +43,10 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-
-    // const day = {
-    //   ...state.days[id]
-
-    // }
-
-    // Promise.all([
-    //   axios.put(`/api/appointments/${id}`, { interview }),
-    //   axios.put('/api/days', )
-    // ])
-
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((response) => {
         setState({ ...state, appointments });
+        getDays();
       })
   }
 
@@ -68,6 +66,7 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`)
       .then((response) => {
         setState({ ...state, appointments });
+        getDays();
       })
   }
 
