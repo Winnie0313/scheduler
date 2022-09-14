@@ -9,7 +9,6 @@ export default function useVisualMode(initial) {
     // setMode(newMode);
     const newHistory = [...history]
     if (replace) {
-      // const newHistory = history.slice(0, -1);
       newHistory.pop();
 
       // setHistory([...newHistory, newMode]);
@@ -17,6 +16,7 @@ export default function useVisualMode(initial) {
       // const newHistory = [...history];
     newHistory.push(newMode);
     setHistory(newHistory);
+    console.log("history is: ", newHistory);
 
   };
 
