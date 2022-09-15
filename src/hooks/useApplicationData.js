@@ -46,6 +46,7 @@ export default function useApplicationData() {
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((response) => {
         setState({ ...state, appointments });
+        // update the local state with new number of spots
         getDays();
       })
   }
@@ -66,6 +67,7 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`)
       .then((response) => {
         setState({ ...state, appointments });
+        // update the local state with new number of spots
         getDays();
       })
   }
