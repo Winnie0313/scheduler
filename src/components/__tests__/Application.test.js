@@ -8,7 +8,18 @@ import React from "react";
   We import our helper functions from the react-testing-library
   The render function allows us to render Components
 */
-import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText} from "@testing-library/react";
+import { 
+  render, 
+  cleanup, 
+  waitForElement, 
+  fireEvent, 
+  getByText, 
+  prettyDOM, 
+  getAllByTestId, 
+  getByAltText, 
+  getByPlaceholderText,
+  queryByText
+} from "@testing-library/react";
 
 /*
   We import the component that we are testing
@@ -38,7 +49,7 @@ describe ("Application", () => {
     expect(getByText("Leopold Silvers")).toBeInTheDocument();
   });
   
-  it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+  it.only("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
     const { container } = render(<Application />);
     
     //getByTest is imported from testing-library, not the one bounded to the render function above
@@ -47,7 +58,6 @@ describe ("Application", () => {
     // get the empty appointment lot
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
-    console.log(prettyDOM(appointment));
 
     // fire the add button of above appointment lot
     fireEvent.click(getByAltText(appointment, "Add"))
@@ -62,12 +72,20 @@ describe ("Application", () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
-    console.log(prettyDOM(appointment));
 
 
-    // fireEvent.click(getByAltText("Tuesday"));
-  
-    // expect(getByText("Leopold Silvers")).toBeInTheDocument();
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+
+    // debug(container);
+
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+
   });
 
 })

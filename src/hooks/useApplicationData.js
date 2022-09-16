@@ -10,8 +10,8 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-   // request data for days and appointments from different APIs
-   useEffect(() => {
+  // request data for days and appointments from different APIs
+  useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
@@ -24,16 +24,36 @@ export default function useApplicationData() {
   // select the day 
   const setDay = day => setState(prev => ({ ...prev, day }));
 
-  // get days array from api
-  const getDays = function() {
-    return axios.get('/api/days')
-      .then((response) => {
-        setState(prev => ({...prev, days: response.data}))
-      })
-  }
+  // count the remaining spots for the selected day 
+  const countSpots = (newAppointments) => {
+    const currentDay = state.days.find((day) => day.name === state.day);
+    const apptIds = currentDay.appointments;
 
-  // use the appointment id to find the right appointment slot, and book the interview for the appointment lot
-  // and update the interview data on api
+    const apptList = apptIds.map((id) => newAppointments[id]);
+    const freeApts = apptList.filter((id) => newAppointments[id].interview === null);
+    const amountFreeApts = freeApts.length;
+
+    return amountFreeApts;
+  };
+
+  // helper function to update the Spots after booked/canceled an interview
+  const updateSpots = (newAppointments) => {
+
+    //count the remaining spots
+    return state.days.map((eachDay) => {
+      let freeSpots = 0;
+      for (let appointmentId of eachDay.appointments) {
+        if (newAppointments[appointmentId].interview === null) {
+          freeSpots++;
+        }
+      }
+      return { ...eachDay, spots: freeSpots }
+
+    })
+
+  };
+
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -45,9 +65,12 @@ export default function useApplicationData() {
     };
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        setState({ ...state, appointments });
-        // update the local state with new number of spots
-        getDays();
+        // update local state with new appointments and the spots remaining
+        setState({...state, appointments, days: updateSpots(appointments)})
+
+      })
+      .catch((err) => {
+        return err;
       })
   }
 
@@ -66,9 +89,7 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`)
       .then((response) => {
-        setState({ ...state, appointments });
-        // update the local state with new number of spots
-        getDays();
+        setState({...state, appointments, days: updateSpots(appointments)})
       })
   }
 

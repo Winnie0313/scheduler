@@ -35,7 +35,11 @@ export default function Appoinment(props) {
 
     transition(SAVING);
     props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
+      .then(() => {
+        console.log("i am here tooooooo!")
+        transition(SHOW)
+  
+      })
       .catch(err => transition(ERROR_SAVE, true))
   };
 
@@ -71,8 +75,8 @@ export default function Appoinment(props) {
           onSave={save}
         />
       )}
-      {mode === SAVING && <Status message="Saving..." />}
-      {mode === DELETING && <Status message="Deleting..." />}
+      {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
       {mode === COMFIRM && <Confirm
         message="Are you sure?"
         onCancel={back}
