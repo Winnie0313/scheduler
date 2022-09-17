@@ -2,9 +2,13 @@
 Interview Scheduler is a React application that allows users to book and cancel interviews. This project combines a concise API with a WebSocket server to build a realtime experience.
 
 ## Final Product
+Show appointments of selected day
+!["show-appointments"](#)
+Edit an appointment
+!["edit-appointment"](#)
+Book an appointment
+!["book-appointment"](https://github.com/Winnie0313/scheduler/blob/master/docs/book-appointment.png)
 
-!["screenshot description"](#)
-!["screenshot description"](#)
 
 ## Dependencies:
 - axios
