@@ -144,7 +144,7 @@ describe("Application", () => {
 
     // change the interviewer
     fireEvent.click(getByAltText(appointment, "Tori Malcolm"));
-  
+
     // and save the interview.
     fireEvent.click(getByText(appointment, "Save"));
 
