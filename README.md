@@ -3,11 +3,11 @@ Interview Scheduler is a React application that allows users to book and cancel 
 
 ## Final Product
 Show appointments of selected day
-!["show-appointments"](https://github.com/Winnie0313/scheduler/blob/master/docs/show-appointments.png)
+!["show-appointments"](https://github.com/Winnie0313/scheduler/blob/master/docs/show-appointments.png?raw=true)
 Edit an appointment
-!["edit-appointment"](https://github.com/Winnie0313/scheduler/blob/master/docs/edit-appointment.png)
+!["edit-appointment"](https://github.com/Winnie0313/scheduler/blob/master/docs/edit-appointment.png?raw=true)
 Book an appointment
-!["book-appointment"](https://github.com/Winnie0313/scheduler/blob/master/docs/book-appointment.png)
+!["book-appointment"](https://github.com/Winnie0313/scheduler/blob/master/docs/book-appointment.png?raw=true)
 
 
 ## Dependencies:
