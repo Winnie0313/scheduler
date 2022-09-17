@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 
 export default function useVisualMode(initial) {
-  // const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
   function transition(newMode, replace = false) {
-    // setMode(newMode);
     const newHistory = [...history]
-    if (replace) {
+    if (replace) { // if replace is true, remove the most recent mode in history array. Used in DELETING and DELETE_ERROR mode: when close error page, should double back to form mode 
       newHistory.pop();
 
-      // setHistory([...newHistory, newMode]);
     } 
-      // const newHistory = [...history];
     newHistory.push(newMode);
     setHistory(newHistory);
 
@@ -25,7 +21,7 @@ export default function useVisualMode(initial) {
     }
     const newHistory = [...history];
     newHistory.pop();
-    // setMode(prev => newHistory[newHistory.length - 1]);
+
     setHistory(newHistory);
   };
   const mode = history[history.length - 1];

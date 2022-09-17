@@ -69,9 +69,6 @@ export default function useApplicationData() {
         setState({...state, appointments, days: updateSpots(appointments)})
 
       })
-      // .catch((err) => {
-      //   return err;
-      // })
   }
 
   // use the appointment id to find the right appointment slot 
